@@ -1876,20 +1876,19 @@ barplot(poisson_away, names.arg = h2$breaks[-1], xlab=&quot;Away Score(goals)&qu
 <h3>Home - Away team score (poisson)</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBzaG93IGRlbnNpdGllcyBmb3IgZWFjaCBudW1iZXIgb2YgZ29hbHNcbmgzX3RhYmxlID0gZGF0YS50YWJsZShudW1iZXJfb2ZfZ29hbHMgPSBoMyRicmVha3NbLTFdLCBwcm9iYWJpbGl0eSA9IGgzJGRlbnNpdHkpXG5oM190YWJsZVxuYGBgIn0= -->
-<pre class="r"><code># show densities for each number of goals
-h3_table = data.table(number_of_goals = h3$breaks[-1], probability = h3$density)
-h3_table</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEudGFibGUiLCJkYXRhLmZyYW1lIl0sIm5jb2wiOjIsIm5yb3ciOjE1fSwicmRmIjoiSDRzSUFBQUFBQUFBQXd0eWlURGlpdUJpWUdCZ1ltQm1ZV0ZnWWdZeVdaaUFCQ01EQ3dNbmlLNWdZR0FXQml0Z1lPQURZdjRERWd4Z2NFQUVTZ3RBYVE0b0RhRVk5bjlnUUFIMlVMNERsTzhBVmU4QTFlOEFOYzhCYXI2RERKUldnQnNCdHQ4K3F1bFpvTUhEU1Bzc0tEM0o4bC80eFZsdjdaZHNjMzZmWjhCcnYrMUU3ZHRqakN2c0R6dExoLzF0M21WLytodmZ5NFc5cSszUGFJdUFWTmdmWHF2MndjbmR3WDdOZiswWFo4c3E3ZWRBeFNkTVBQOXBYODkxbUxsd2QwZkIrQ2dCdzFtVVg2NlhsNWliV2d6azhJSUNxQUZJL1AvLy95T2FRdGJrbk1SaWtDSUJKRUd1bE1TU1JMMjBJcUIrZE9Vd013WEFnUTRSNU04cnpVMUtMWXJQVDR0UHowL01LWVlLY3hjVTVTY2xKbVhtWkpaVUFybi8wSXhpenk4b3ljelBBeHJHQklwQk5qUTNNQmFoQ2JCazVPZWtvSW54bCthQkhKU2ltNXhSbXBldGF3NXlPMWdhQW5paGJINGtOaFBFR1N6L29VYXhRWTFpUzgxTHo4eExoZkk0MGpMVDlZb3o4c3RoL3M1SlRFck5nWEw0Z0lFTERnZTlncUxNdkJKWW9BRkZpL1ZLOGtzU1llcTRrdk56WUNKZy96UDhBd0NpdXYybTB3SUFBQT09In0= -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEudGFibGUiLCJkYXRhLmZyYW1lIl0sIm5jb2wiOjIsIm5yb3ciOjE1fSwicmRmIjoiSDRzSUFBQUFBQUFBQXd0eWlURGlpdUJpWUdCZ1ltQm1ZV0ZnWWdZeVdaaUFCQ01EQ3dNbmlLNWdZR0FXQml0Z1lPQURZdjRERWd4Z2NFQUVTZ3RBYVE0b0RhRVk5bjlnUUFIMlVMNERsTzhBVmU4QTFlOEFOYzhCYXI2RERKUldnQnNCdHQ4K3F1bFpvTUhEU1Bzc0tEM0o4bC80eFZsdjdaZHNjMzZmWjhCcnYrMUU3ZHRqakN2c0R6dExoLzF0M21WLytodmZ5NFc5cSszUGFJdUFWTmdmWHF2MndjbmR3WDdOZiswWFo4c3E3ZWRBeFNkTVBQOXBYODkxbUxsd2QwZkIrQ2dCdzFtVVg2NlhsNWliV2d6azhJSUNxQUZJL1AvLy95T2FRdGJrbk1SaWtDSUJKRUd1bE1TU1JMMjBJcUIrZE9Vd013WEFnUTRSNU04cnpVMUtMWXJQVDR0UHowL01LWVlLY3hjVTVTY2xKbVhtWkpaVUFybi8wSXhpenk4b3ljelBBeHJHQklwQk5qUTNNQmFoQ2JCazVPZWtvSW54bCthQkhKU2ltNXhSbXBldGF3aHlPMWdhQW5paGJINGtOaFBFR1N6L29VYXhRWTFpUzgxTHo4eExoZkk0MGpMVDlZb3o4c3RoL3M1SlRFck5nWEw0Z0lFTERnZTlncUxNdkJKWW9BRkZpL1ZLOGtzU1llcTRrdk56WUNKZy96UDhBd0FwcFZLbzB3SUFBQT09In0= -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["number_of_goals"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["probability"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"-6","2":"0.001618123"},{"1":"-5","2":"0.003236246"},{"1":"-4","2":"0.017799353"},{"1":"-3","2":"0.040453074"},{"1":"-2","2":"0.088996764"},{"1":"-1","2":"0.150485437"},{"1":"0","2":"0.218446602"},{"1":"1","2":"0.220064725"},{"1":"2","2":"0.153721683"},{"1":"3","2":"0.056634304"},{"1":"4","2":"0.027508091"},{"1":"5","2":"0.016181230"},{"1":"6","2":"0.003236246"},{"1":"7","2":"0.000000000"},{"1":"8","2":"0.001618123"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[15]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVhbl9oYV9zY29yZXMgPSBtZWFuKGVwbF9kaWZmKVxucG9pc3Nvbl9oYSA9IGRub3JtKG1pbihlcGxfZGlmZik6bWF4KGVwbF9kaWZmKSwgbWVhbj1tZWFuX2hhX3Njb3Jlcywgc2QgPSBzZChlcGxfZGlmZikpXG5wb2lzc29uX2hhID0gcm91bmQocG9pc3Nvbl9oYSAqIG5yb3coZXBsX21hdGNoZXMpKVxuYmFycGxvdChwb2lzc29uX2hhLCBuYW1lcy5hcmcgPSBoMyRicmVha3NbLTFdLCB4bGFiPVwiSG9tZSAtIEF3YXkgU2NvcmUoZ29hbHMpXCIsIHlsYWI9XCJOdW1iZXIgb2YgR2FtZXNcIiwgY29sID0gXCJyZWRcIiwgbWFpbiA9IFwiSG9tZSAtIEF3YXkgU2NvcmUgUG9pc3NvbiBIaXN0b2dyYW1cIilcbmBgYCJ9 -->
-<pre class="r"><code>mean_ha_scores = mean(epl_diff)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBzaG93IGRlbnNpdGllcyBmb3IgZWFjaCBudW1iZXIgb2YgZ29hbHNcbmgzX3RhYmxlID0gZGF0YS50YWJsZShudW1iZXJfb2ZfZ29hbHMgPSBoMyRicmVha3NbLTFdLCBwcm9iYWJpbGl0eSA9IGgzJGRlbnNpdHkpXG5oM190YWJsZVxuXG5tZWFuX2hhX3Njb3JlcyA9IG1lYW4oZXBsX2RpZmYpXG5wb2lzc29uX2hhID0gZG5vcm0obWluKGVwbF9kaWZmKTptYXgoZXBsX2RpZmYpLCBtZWFuPW1lYW5faGFfc2NvcmVzLCBzZCA9IHNkKGVwbF9kaWZmKSlcbnBvaXNzb25faGEgPSByb3VuZChwb2lzc29uX2hhICogbnJvdyhlcGxfbWF0Y2hlcykpXG5iYXJwbG90KHBvaXNzb25faGEsIG5hbWVzLmFyZyA9IGgzJGJyZWFrc1stMV0sIHhsYWI9XCJIb21lIC0gQXdheSBTY29yZShnb2FscylcIiwgeWxhYj1cIk51bWJlciBvZiBHYW1lc1wiLCBjb2wgPSBcInJlZFwiLCBtYWluID0gXCJIb21lIC0gQXdheSBTY29yZSBQb2lzc29uIEhpc3RvZ3JhbVwiKVxuYGBgIn0= -->
+<pre class="r"><code># show densities for each number of goals
+h3_table = data.table(number_of_goals = h3$breaks[-1], probability = h3$density)
+h3_table
+
+mean_ha_scores = mean(epl_diff)
 poisson_ha = dnorm(min(epl_diff):max(epl_diff), mean=mean_ha_scores, sd = sd(epl_diff))
 poisson_ha = round(poisson_ha * nrow(epl_matches))
 barplot(poisson_ha, names.arg = h3$breaks[-1], xlab=&quot;Home - Away Score(goals)&quot;, ylab=&quot;Number of Games&quot;, col = &quot;red&quot;, main = &quot;Home - Away Score Poisson Histogram&quot;)</code></pre>
