@@ -1,6 +1,7 @@
 ---
 title: "HOMEWORK1"
-output: html_notebook
+output: html_document
+layout: default
 ---
 ## **Ceyhun Onur**
 
@@ -8,7 +9,7 @@ output: html_notebook
 
 # Task 1
 Needed packages:
-```{r include=FALSE}
+```{r }
 installed.packages("data.table")
 library(data.table)
 ```
