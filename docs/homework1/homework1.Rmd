@@ -2,8 +2,7 @@
 title: "HOMEWORK1"
 output: 
   html_document: 
-    keep_md: yes
-layout: default
+    css: ~/git/CMPE/fall19-ceyonur/docs/hacker.css
 ---
 ## **Ceyhun Onur**
 
