@@ -1,9 +1,8 @@
 ---
 title: "HOMEWORK1"
-output: 
-  html_document: 
+output:
+  html_document:
     keep_md: yes
-layout: default
 ---
 ## **Ceyhun Onur**
 
@@ -186,7 +185,7 @@ bookmaker_data_count
 ##   3:         Unibet 8697
 ##   4:          18bet 8676
 ##   5:       888sport 8625
-##  ---                    
+##  ---
 ##  99:      Planetwin   81
 ## 100:         Bovada   69
 ## 101:        Kto.com   42
@@ -260,7 +259,7 @@ first_bets
 ##   3:   156845          1xBet       0 0.4166667 0.3225806 0.2824859
 ##   4:   156847          1xBet       0 0.5494505 0.2673797 0.2074689
 ##   5:   156850          1xBet       1 0.5555556 0.2793296 0.1923077
-##  ---                                                              
+##  ---
 ## 271:   237422          1xBet       0 0.4504505 0.2941176 0.2777778
 ## 272:   237423          1xBet       0 0.5586592 0.2793296 0.2450980
 ## 273:   237437          1xBet       0 0.3623188 0.2808989 0.3816794
@@ -272,7 +271,7 @@ first_bets
 ##   3: 0.4078038  0.3157191  0.2764771     0.13132664     (0.111,0.161]
 ##   4: 0.5364161  0.2610367  0.2025472     0.33386895     (0.311,0.361]
 ##   5: 0.5408483  0.2719349  0.1872167     0.35363161     (0.311,0.361]
-##  ---                                                                 
+##  ---
 ## 271: 0.4406048  0.2876890  0.2717063     0.16889849     (0.161,0.211]
 ## 272: 0.5158028  0.2579014  0.2262958     0.28950695     (0.261,0.311]
 ## 273: 0.3535173  0.2740752  0.3724075    -0.01889024  (-0.0388,0.0112]
@@ -371,7 +370,7 @@ plot(first_bets$p_win_imp - first_bets$p_lose_imp, first_bets$p_draw_imp,cex=0.5
 # Task 2.4
 # Draw points for bins
 plot(first_bin_table$w_l_cut, first_bin_table$emprical_over,ylab="P(DRAW)",xlab="bin", main = first_bookmaker_name)
-# Draw both calculated emprical data(calculated result) and probabilistic(real draw) lines to compare. 
+# Draw both calculated emprical data(calculated result) and probabilistic(real draw) lines to compare.
 lines(lowess(first_bin_table$w_l_cut, first_bin_table$emprical_over), col="black", lwd=1)
 lines(lowess(first_bin_table$w_l_cut, first_bin_table$probabilistic_over), col="red", lwd=1)
 legend("topright", legend=c("Calculated Probability", "Real Probability"), col=c("black","red"), lty=1:1, cex=0.8)
@@ -400,7 +399,7 @@ second_bets
 ##   3:   156847           bwin       0 0.5882353 0.3125000 0.2000000
 ##   4:   156850           bwin       1 0.5555556 0.3125000 0.2309469
 ##   5:   157536           bwin       0 0.2941176 0.3030303 0.4761905
-##  ---                                                              
+##  ---
 ## 269:   237422           bwin       0 0.4761905 0.3030303 0.2941176
 ## 270:   237423           bwin       0 0.3225806 0.3448276 0.4347826
 ## 271:   237437           bwin       0 0.6250000 0.2777778 0.1818182
@@ -412,7 +411,7 @@ second_bets
 ##   3: 0.5344021  0.2839011  0.1816967     0.35270541     (0.309,0.359]
 ##   4: 0.5055089  0.2843488  0.2101423     0.29536665     (0.259,0.309]
 ##   5: 0.2740214  0.2823250  0.4436536    -0.16963227   (-0.191,-0.141]
-##  ---                                                                 
+##  ---
 ## 269: 0.4436536  0.2823250  0.2740214     0.16963227     (0.159,0.209]
 ## 270: 0.2926722  0.3128565  0.3944713    -0.10179903  (-0.141,-0.0912]
 ## 271: 0.5762515  0.2561118  0.1676368     0.40861467     (0.359,0.409]
@@ -539,7 +538,7 @@ third_bets
 ##   3:   156848         Unibet       0 0.3636364 0.3225806 0.3846154
 ##   4:   156850         Unibet       1 0.5555556 0.3076923 0.2127660
 ##   5:   157536         Unibet       0 0.3076923 0.2985075 0.4587156
-##  ---                                                              
+##  ---
 ## 268:   237422         Unibet       0 0.2439024 0.2739726 0.5649718
 ## 269:   237423         Unibet       0 0.5154639 0.2941176 0.2777778
 ## 270:   237437         Unibet       0 0.6493506 0.2777778 0.1724138
@@ -551,7 +550,7 @@ third_bets
 ##   3: 0.3395829  0.3012429  0.3591742    -0.01959132 (-0.0654,-0.0154]
 ##   4: 0.5163089  0.2859557  0.1977353     0.31857360     (0.285,0.335]
 ##   5: 0.2889359  0.2803110  0.4307531    -0.14181717   (-0.165,-0.115]
-##  ---                                                                 
+##  ---
 ## 268: 0.2252419  0.2530114  0.5217467    -0.29650484   (-0.315,-0.265]
 ## 269: 0.4740511  0.2704880  0.2554609     0.21859024     (0.185,0.235]
 ## 270: 0.5905645  0.2526304  0.1568051     0.43375948     (0.385,0.435]
@@ -675,7 +674,7 @@ fourth_bets
 ##   3:   156850          18bet       1 0.5780347 0.2906977 0.2155172
 ##   4:   157536          18bet       0 0.3105590 0.3105590 0.4608295
 ##   5:   157537          18bet       0 0.7874016 0.1872659 0.1096491
-##  ---                                                              
+##  ---
 ## 267:   237422          18bet       0 0.4545455 0.3076923 0.3076923
 ## 268:   237423          18bet       0 0.4761905 0.2985075 0.2857143
 ## 269:   237437          18bet       0 0.6535948 0.2631579 0.1428571
@@ -687,7 +686,7 @@ fourth_bets
 ##   3: 0.5331196  0.2681096  0.1987709     0.33434870     (0.301,0.351]
 ##   4: 0.2870370  0.2870370  0.4259259    -0.13888889  (-0.149,-0.0987]
 ##   5: 0.7261731  0.1727041  0.1011228     0.62505032     (0.601,0.651]
-##  ---                                                                 
+##  ---
 ## 267: 0.4248366  0.2875817  0.2875817     0.13725490     (0.101,0.151]
 ## 268: 0.4490617  0.2815013  0.2694370     0.17962466     (0.151,0.201]
 ## 269: 0.6168259  0.2483536  0.1348205     0.48200538     (0.451,0.501]
@@ -792,7 +791,7 @@ legend("topright", legend=c("Calculated Probability", "Real Probability"), col=c
 ![](homework1_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
 
 ```r
-# Proposed(real) probability is higher, 18bet is also a good bookmaker. 
+# Proposed(real) probability is higher, 18bet is also a good bookmaker.
 ```
 ### Task 3
 
@@ -819,7 +818,7 @@ goals
 ##   3:    13291 90+5 Batshuayi M. 4 - 2                      4          2
 ##   4:    13296 90+2 Cleverley T. 2 - 1                      2          1
 ##   5:    13323 90+2  Martial A.  4 - 0                      4          0
-##  ---                                                                   
+##  ---
 ## 470:   278727 90+2    Kurtic J. 2 - 1                      2          1
 ## 471:   278731 90+5  Castagne T. 2 - 2                      2          2
 ## 472:   278732 90+4              1 - 2    Dzeko E.          1          2
@@ -831,7 +830,7 @@ goals
 ##   3:                            3                            2
 ##   4:                            1                            1
 ##   5:                            3                            0
-##  ---                                                          
+##  ---
 ## 470:                            1                            1
 ## 471:                            1                            2
 ## 472:                            1                            1
@@ -865,7 +864,7 @@ nrow(excluded_endtime_matches)
 ```r
 # read booking data
 bookings <- fread("/home/ceyonur/git/CMPE/fall19-ceyonur/data/homework1/booking.csv")
-# find matches with red card before 15 mins. 
+# find matches with red card before 15 mins.
 excluded_bookings <- bookings[card == "red card" & time <= 15]
 # count of excluded matches due to red card.
 nrow(excluded_bookings)
