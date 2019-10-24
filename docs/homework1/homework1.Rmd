@@ -14,6 +14,7 @@ Needed packages:
 installed.packages("data.table")
 library(data.table)
 ```
+
 ## Subtask 1
 ```{r}
 # Read frome the snapshot, select only columns we're interested in.
@@ -59,6 +60,7 @@ poisson_home = dpois(min(epl_matches$match_hometeam_score):max(epl_matches$match
 poisson_home = round(poisson_home * nrow(epl_matches))
 barplot(poisson_home, names.arg = h1$breaks[-1], xlab="Home Score(goals)", ylab="Number of Games", col = "red", main = "Home Score Poisson Histogram")
 ```
+
 ### Away team score (poisson)
 ```{r}
 # show densities for each number of goals
@@ -69,6 +71,7 @@ poisson_away = dpois(min(epl_matches$match_awayteam_score):max(epl_matches$match
 poisson_away = round(poisson_away * nrow(epl_matches))
 barplot(poisson_away, names.arg = h2$breaks[-1], xlab="Away Score(goals)", ylab="Number of Games", col = "red", main = "Away Score Poisson Histogram")
 ```
+
 ### Home - Away team score (poisson)
 ```{r}
 # show densities for each number of goals
@@ -79,6 +82,7 @@ poisson_ha = dnorm(min(epl_diff):max(epl_diff), mean=mean_ha_scores, sd = sd(epl
 poisson_ha = round(poisson_ha * nrow(epl_matches))
 barplot(poisson_ha, names.arg = h3$breaks[-1], xlab="Home - Away Score(goals)", ylab="Number of Games", col = "red", main = "Home - Away Score Poisson Histogram")
 ```
+
 # Task 2
 ```{r}
 # read bets csv
@@ -97,6 +101,7 @@ bookmaker_names <- bookmaker_data_count[1:4]$odd_bookmakers
 bookmaker_data_count
 bookmaker_names
 ```
+
 ### Custom functions:
 ```{r}
 # Use this function to analyze for different bookmakers.
@@ -136,6 +141,7 @@ bookmaker_bin_table <- function(bookmaker_bets){
   bookmaker_bin_table <- bookmaker_bin_table[order(w_l_cut)]
 }
 ```
+
 ### First book maker
 ```{r}
 # 1st
@@ -161,6 +167,7 @@ lines(lowess(first_bin_table$w_l_cut, first_bin_table$probabilistic_over), col="
 legend("topright", legend=c("Calculated Probability", "Real Probability"), col=c("black","red"), lty=1:1, cex=0.8)
 # 1xBet seems a good bookmaker since the real probability (given by bookmaker) is higher than the calculated one.
 ```
+
 ### Second Bookmaker
 ```{r}
 # 2nd
@@ -185,6 +192,7 @@ lines(lowess(second_bin_table$w_l_cut, second_bin_table$probabilistic_over), col
 legend("topright", legend=c("Calculated Probability", "Real Probability"), col=c("black","red"), lty=1:1, cex=0.8)
 # bwin is arguably not a good bookmaker at the point(-0.491, -0.441) where probability lines crosses and calculated probability is higher than real one.
 ```
+
 ### Third bookmaker
 ```{r}
 # 3rd
@@ -228,6 +236,7 @@ lines(lowess(fourth_bin_table$w_l_cut, fourth_bin_table$probabilistic_over), col
 legend("topright", legend=c("Calculated Probability", "Real Probability"), col=c("black","red"), lty=1:1, cex=0.8)
 # Proposed(real) probability is higher, 18bet is also a good bookmaker. 
 ```
+
 ### Task 3
 ```{r}
 # Read goal data
@@ -278,6 +287,7 @@ excluded_merged_data = merged_data[match_id %!in% excluded_match_ids]
 # removed match count
 nrow(merged_data) - nrow(excluded_merged_data)
 ```
+
 ### Task 2 (after removing noise data)
 ### First bookmaker
 ```{r}
@@ -296,6 +306,7 @@ lines(lowess(first_bin_table$w_l_cut, first_bin_table$emprical_over), col="green
 legend("topright", legend=c("Calculated Probability", "Real Probability", "Original Calculated Probability"), col=c("black","red", "green"), lty=1:1, cex=0.8)
 # When we compare original (before excluding matches) with current calculated proability, there is no big differences. The current one is a little bit below than the original one.
 ```
+
 ### Second bookmaker
 ```{r}
 # 2nd
@@ -313,6 +324,7 @@ lines(lowess(second_bin_table$w_l_cut, second_bin_table$emprical_over), col="gre
 legend("topright", legend=c("Calculated Probability", "Real Probability", "Original Calculated Probability"), col=c("black","red", "green"), lty=1:1, cex=0.8)
 # When we compare original (before excluding matches) with current calculated proability, there is no big differences. The current one is a little bit below than the original one.
 ```
+
 ### Third bookmaker
 ```{r}
 # 3rd
@@ -330,6 +342,7 @@ lines(lowess(third_bin_table$w_l_cut, third_bin_table$emprical_over), col="green
 legend("topright", legend=c("Calculated Probability", "Real Probability", "Original Calculated Probability"), col=c("black","red", "green"), lty=1:1, cex=0.8)
 # This one has a much bigger difference between original and current probability line. Seems like bookmaker considered the situtations more accuratly than other bookmakers. Since the calculated probability is further away from the proposed probability.
 ```
+
 ### Fourth bookmaker
 ```{r}
 # 4th
