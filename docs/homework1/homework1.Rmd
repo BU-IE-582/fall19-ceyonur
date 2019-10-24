@@ -3,6 +3,7 @@ title: "HOMEWORK1"
 output: 
   html_document: 
     css: ~/git/CMPE/fall19-ceyonur/docs/hacker.css
+    df_print: paged
 ---
 ## **Ceyhun Onur**
 
