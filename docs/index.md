@@ -6,4 +6,4 @@
 
 ## Homework 2 (November 1)
 
-[Here](/homework1/homework2.html) is my approach for Homework 2.
+[Here](/homework2/homework2.html) is my approach for Homework 2.
