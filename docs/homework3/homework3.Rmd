@@ -1,0 +1,235 @@
+---
+title: "HOMEWORK 3"
+output: 
+  html_document: 
+    css: ~/git/CMPE/fall19-ceyonur/docs/hacker.css
+    df_print: paged
+---
+## **Ceyhun Onur**
+
+## _22/11/2019_
+
+# Task-A
+```{r eval=FALSE, include=FALSE}
+install.packages("data.table")
+```
+
+```{r message=FALSE, warning=FALSE , echo=T, results="hide"}
+library(data.table)
+```
+
+```{r}
+tr_consumptions <- fread("/home/ceyhun/git/CMPE/fall19-ceyonur/data/homework3/tr-consumption.csv")
+# rename first two columns
+names(tr_consumptions)[1:3]<-c("date", "time", "consumption_mwh")
+tr_consumptions[ , datetime := paste(date, time)]
+tr_consumptions <- tr_consumptions[,-c(1,2)]
+tr_to_iso_num <- function(tr_num_str) {
+  no_thousand = gsub("\\.", "", tr_num_str)
+  dot_decimal = gsub(",",".", no_thousand)
+  return(dot_decimal)
+}
+tr_consumptions[, consumption_mwh := as.numeric(tr_to_iso_num(consumption_mwh))]
+tr_consumptions[, datetime := as.POSIXct(datetime, format = "%d.%m.%Y %H:%M")]
+setcolorder(tr_consumptions, c("datetime", "consumption_mwh"))
+#do same for test data
+test_data <- fread("/home/ceyhun/git/CMPE/fall19-ceyonur/data/homework3/test-data-tr-consumption.csv")
+# rename first two columns
+names(test_data)[1:3]<-c("date", "time", "consumption_mwh")
+test_data[ , datetime := paste(date, time)]
+test_data <- test_data[,-c(1,2)]
+test_data[, consumption_mwh := as.numeric(tr_to_iso_num(consumption_mwh))]
+test_data[, datetime := as.POSIXct(datetime, format = "%d.%m.%Y %H:%M")]
+setcolorder(test_data, c("datetime", "consumption_mwh"))
+test_data
+```
+
+```{r}
+combined <- rbindlist(list(tr_consumptions, test_data))
+combined <- setorder(combined, "datetime")
+
+test_data[, lag_48_datetime := datetime - 60 * 60 * 48]
+test_data = merge(test_data, combined, by.x="lag_48_datetime", by.y="datetime")
+setnames(test_data,old=c("consumption_mwh.x","consumption_mwh.y"), new=c("consumption_mwh", "naive_48"))
+test_data[, lag_168_datetime := datetime - 60 * 60 * 168]
+test_data = merge(test_data, combined, by.x="lag_168_datetime", by.y="datetime")
+setnames(test_data,old=c("consumption_mwh.x","consumption_mwh.y"), new=c("consumption_mwh", "naive_168"))
+setcolorder(test_data, c("datetime", "consumption_mwh", "lag_48_datetime", "naive_48", "lag_168_datetime", "naive_168"))
+test_data
+```
+## MAPE of Lag 48
+```{r}
+mape <- function(actual, pred){
+  mape <- (abs((actual - pred)/actual))*100
+  return (mape)
+}
+mape_naive_48 = mape(test_data$consumption_mw, test_data$naive_48)
+summary(mape_naive_48)
+```
+## MAPE of Lag 168
+```{r}
+mape_naive_168 = mape(test_data$consumption_mw, test_data$naive_168)
+summary(mape_naive_168)
+```
+# Task-B (Linear Regression)
+
+```{r}
+long_format = copy(combined)
+long_format[, lag_48_datetime := datetime - 60 * 60 * 48]
+long_format = merge(long_format, combined, by.x="lag_48_datetime", by.y="datetime")
+setnames(long_format,old=c("consumption_mwh.x","consumption_mwh.y"), new=c("consumption_mwh", "lag_48"))
+long_format[, lag_168_datetime := datetime - 60 * 60 * 168]
+long_format = merge(long_format, combined, by.x="lag_168_datetime", by.y="datetime")
+setnames(long_format,old=c("consumption_mwh.x","consumption_mwh.y"), new=c("consumption_mwh", "lag_168"))
+setcolorder(long_format, c("datetime", "consumption_mwh", "lag_48_datetime", "lag_48", "lag_168_datetime", "lag_168"))
+long_format[,long_format[, c("lag_48_datetime", "lag_168_datetime"):=NULL]]
+setcolorder(long_format, c("datetime","lag_48", "lag_168", "consumption_mwh"))
+long_format
+```
+
+```{r}
+train_data = long_format[datetime < as.POSIXct('2019-11-1')]
+model = lm(consumption_mwh ~ lag_48 + lag_168, data=train_data )
+layout(matrix(c(1,2,3,4),2,2))
+plot(model)
+summary(model)
+```
+
+```{r}
+train_data = train_data[, consumption_fit := model$fitted.values]
+train_data
+```
+
+## Training MAPE of Linear Regression
+
+```{r}
+training_mape = mape(train_data$consumption_mw, train_data$consumption_fit)
+summary(training_mape)
+```
+
+```{r}
+setnames(test_data,old=c("naive_48","naive_168"), new=c("lag_48", "lag_168"))
+test_data[,test_data[, c("lag_48_datetime", "lag_168_datetime"):=NULL]]
+raw_test_data = copy(test_data)
+trained_test = predict(model, test_data)
+test_data[, predicted_consumption := trained_test]
+test_data
+```
+
+## Test MAPE of Linear Regression
+
+```{r}
+test_mape = mape(test_data$consumption_mw, test_data$predicted_consumption)
+summary(test_mape)
+```
+
+# Task-C (Hourly Linear Regression)
+
+```{r}
+hour_models = list()
+train_data = long_format[datetime < as.POSIXct('2019-11-1')]
+h_train_table = data.table()
+h_test_table = data.table()
+for (i in 0:23){
+  h_train_data = train_data[as.integer(format(datetime, "%H")) == i]
+  h_model = lm(consumption_mwh ~ lag_48 + lag_168, data=h_train_data )
+  h_train_data <- h_train_data[, consumption_fit := h_model$fitted.values]
+  h_train_table = rbind(h_train_data, h_train_table)
+  
+  h_test_data = raw_test_data[as.integer(format(datetime, "%H")) == i]
+  h_trained_test = predict(h_model, h_test_data)
+  h_test_data[, predicted_consumption := h_trained_test]
+  h_test_table = rbind(h_test_data, h_test_table)
+}
+h_test_table
+```
+
+## Training MAPE of Hourly Linear Regression
+
+```{r}
+h_train_mape = mape(h_train_table$consumption_mw, h_train_table$consumption_fit)
+summary(h_train_mape)
+```
+
+## Test MAPE of Hourly Linear Regression
+
+
+```{r}
+h_test_mape = mape(h_test_table$consumption_mw, h_test_table$predicted_consumption)
+summary(h_test_mape)
+```
+# Task-D (Lasso Penalty)
+```{r}
+tmp = copy(long_format)
+tmp[, hour := format(datetime, format= "%H")]
+tmp[, date := format(datetime, format="%Y-%m-%d")]
+tmp_cast = dcast(tmp, date ~ hour, value.var = c("lag_48", "lag_168"))
+tmp_cast = na.omit(tmp_cast)
+wide_format = merge(tmp, tmp_cast, by="date")
+wide_format = wide_format[,wide_format[, c("date", "hour"):=NULL]]
+wide_format
+```
+
+```{r eval=FALSE, include=FALSE}
+install.packages("glmnet")
+```
+
+```{r message=FALSE, warning=FALSE , echo=T, results="hide"}
+library(glmnet)
+```
+
+```{r}
+hl_models = list()
+train_data = wide_format[datetime < as.POSIXct('2019-11-1')]
+base_test_data = wide_format[datetime >= as.POSIXct('2019-11-1')]
+hl_train_table = data.table()
+hl_test_table = data.table()
+for (i in 0:23){
+  set.seed(11)
+  hl_train_data = train_data[as.integer(format(datetime, "%H")) == i]
+  x = as.matrix(hl_train_data[,5:52])
+  y = hl_train_data$consumption_mwh
+  hl_lasso = cv.glmnet(x, y, nfolds = 10)
+  hl_models[[i+1]] = hl_lasso
+  hl_train_table = rbind(hl_train_data, hl_train_table)
+  
+  hl_test_data = base_test_data[as.integer(format(datetime, "%H")) == i]
+  x_test = as.matrix(hl_test_data[,5:52])
+  hl_trained_test = predict(hl_lasso, newx=x_test, s=1)
+  hl_test_data[, predicted_consumption := hl_trained_test]
+  hl_test_table = rbind(hl_test_data, hl_test_table)
+}
+setcolorder(hl_test_table, c("datetime", "consumption_mwh","predicted_consumption"))
+hl_test_table
+```
+## Test MAPE of Lasso Penalty
+```{r}
+hl_test_mape = mape(hl_test_table$consumption_mw, hl_test_table$predicted_consumption)
+summary(hl_test_mape)
+```
+## Coefficients of Model
+```{r}
+coef_table = data.table()
+for (i in 1:24){
+  coef_table = rbind(coef_table, t(as.matrix(coef(hl_models[[i]]))))
+}
+summary(coef_table)
+coef_table
+```
+
+It can be seen that some data is not used in models at all. For example lag_48_03 and lag_168_03 and lag_168_18 has 0 values. Let's consider hours 11 and 23, seems that in the morning(11) lag_48_11 has a negative coefficient whilst 23 has posive one. There can be observed a repeated pattern for being negative coefficient and positive coefficient regarding to the hours. For example there is negative trend between 00-06:
+
+```{r}
+m1 <- as.matrix(coef_table[,-1])
+barplot(m1, beside=TRUE, legend=row.names(m1))
+```
+
+# Task-F (Comparison)
+
+```{r}
+results = cbind(mape_naive_48, mape_naive_168, test_mape, h_test_mape, hl_test_mape)
+colnames(results)<-c("naive_2","naive_7", "linear", "linear_hourly", "lasso")
+boxplot(results)
+summary(results)
+```
+Lasso Penalty approach works best regarding to others in form of MAPE. However interestingly the naive 7 (168 hours before) approach is almost same with Lasso Penalty. It can be said that naive approach was not naive at all. Although it's very simple it works pretty well in our test data. The worst approach is naive 2 by far. 

@@ -23,7 +23,7 @@ library(factoextra)
 ```
 
 ```{r}
-musk <- fread("/home/ceyonur/git/CMPE/fall19-ceyonur/data/homework2/Musk1.csv")
+musk <- fread("/home/ceyhun/git/CMPE/fall19-ceyonur/data/homework2/Musk1.csv")
 # rename first two columns
 names(musk)[1:2]<-c("bag_class", "bag_id")
 musk
@@ -123,7 +123,7 @@ library(jpeg)
 
 ```{r}
 
-lake <- readJPEG("/home/ceyonur/git/CMPE/fall19-ceyonur/data/homework2/IMG-20190421-WA0028.jpg")
+lake <- readJPEG("/home/ceyhun/git/CMPE/fall19-ceyonur/data/homework2/IMG-20190421-WA0028.jpg")
 # dimensions of the JPEG
 dim(lake)
 ```

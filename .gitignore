@@ -1,2 +1,3 @@
 /data/homework1/*.csv
-*nb.html
+*.nb.html
+*.Rhistory
