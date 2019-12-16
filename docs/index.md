@@ -11,3 +11,7 @@
 ## Homework 3 (November 22)
 
 [Here](/homework3/homework3.html) is my approach for Homework 3.
+
+## Homework 4 (December 16)
+
+[Here](https://bu-ie-582.github.io/fall19-barsssk/HW4/HW4.html) is our approach for Homework 4.
