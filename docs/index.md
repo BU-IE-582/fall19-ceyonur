@@ -18,4 +18,4 @@
 
 ## Project (January 3)
 
-[Here](https://bu-ie-582.github.io/fall19-barsssk/HW4/HW4.html) is our approach for the Project.
+[Here](/project/IE582-Project.html) is our approach for the Project.
